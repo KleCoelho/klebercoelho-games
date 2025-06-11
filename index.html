@@ -1,16 +1,148 @@
-
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Invasão dos Coelhos Robôs 🐰🤖</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kleber Coelho | Invasão dos Coelhos Robôs</title>
+  <style>
+    /* Efeito Matrix */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: black;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #00ff00;
+    }
+
+    #matrixCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #0f0;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      color: #00ff00;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: #00ff00;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+    }
+
+    main {
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      box-shadow: 0 0 20px #0f0;
+    }
+
+    h2 {
+      color: #0f0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #0f0;
+      font-size: 0.9em;
+    }
+  </style>
 </head>
 <body>
-  <h1>🐰 Invasão dos Coelhos Robôs</h1>
-  <canvas id="gameCanvas" width="800" height="500"></canvas>
-  <p id="score">Pontuação: 0</p>
-  <script src="game.js"></script>
+
+  <canvas id="matrixCanvas"></canvas>
+
+  <header>
+    <h1>Kleber Coelho</h1>
+    <nav>
+      <a href="#">Início</a>
+      <a href="#">Blog</a>
+      <a href="#">Projetos</a>
+      <a href="#">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>🚀 Invasão dos Coelhos Robôs</h2>
+    <p>
+      Bem-vindo ao projeto futurista mais insano da galáxia! Os Coelhos Robôs estão invadindo um planeta desconhecido e você faz parte dessa missão. Prepare-se para conhecer os bastidores da criação, programação e gameplay deste jogo inovador.
+    </p>
+    <p>
+      Explore o universo, enfrente desafios cibernéticos e descubra como a tecnologia pode se fundir com a criatividade para criar experiências imersivas e surpreendentes.
+    </p>
+  </main>
+
+  <footer>
+    &copy; 2025 Kleber Coelho. Todos os direitos reservados.
+  </footer>
+
+  <script>
+    // Efeito Matrix
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const characters = 'アァイィウヴエェオカガキギクグケゲコゴサザシジスズセゼソゾタダチッヂヅテデトドナニヌネノハバパヒビピフブプヘベペホボポABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const charArray = characters.split('');
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array.from({ length: columns }).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#0F0';
+      ctx.font = `${fontSize}px monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const char = charArray[Math.floor(Math.random() * charArray.length)];
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 33);
+
+    // Responsivo
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
 </body>
 </html>
